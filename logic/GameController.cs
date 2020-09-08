@@ -14,13 +14,15 @@ public class GameController : Spatial
     [Export] public NodePath BulletsPath { get; set; }
     [Export] public NodePath WeaponViewPath { get; set; }
     [Export] public NodePath GeneralMenuViewPath { get; set; }
+    [Export] public NodePath CrossHairPath { get; set; }
 
     private GameState _gameState;
     private Castle _castle;
     private CameraController _cameraController;
     private Bullets _bullets;
     private Timer _inputTimer;
-
+    
+    private CrossHair _crossHair;
     private WeaponView _weaponView;
     private GeneralMenuView _generalMenuView;
 
@@ -34,25 +36,35 @@ public class GameController : Spatial
         _bullets = GetNode<Bullets>(BulletsPath);
         _weaponView = GetNode<WeaponView>(WeaponViewPath);
         _generalMenuView = GetNode<GeneralMenuView>(GeneralMenuViewPath);
+        _crossHair = GetNode<CrossHair>(CrossHairPath);
+
         _inputTimer = GetNode<Timer>("input_timer");
 
         _bullets.BulletHitsTarget += OnBulletHitTarget;
         _generalMenuView.ShowCastleView += OnShowCastleView;
         _generalMenuView.ShowWeaponView += OnShowWeaponView;
 
-        ChangeState(GameState.WeaponModeActive);
+        ChangeState(GameState.WeaponModeActive, false);
     }
 
     public override void _Process(float delta)
     {
-        HandleWeaponControlInput(delta);
+        switch(_gameState)
+        {
+            case GameState.WeaponModeActive:
+                ProcessWeaponMode(delta);
+                break;
+            case GameState.CastleModeActive:
+                ProcessCastleMode(delta);
+                break;
+        }
     }
 
-    private void OnShowWeaponView() => ChangeState(GameState.WeaponModeActive);
+    private void OnShowWeaponView() => ChangeState(GameState.WeaponModeActive, true);
 
-    private void OnShowCastleView() => ChangeState(GameState.CastleModeActive);
+    private void OnShowCastleView() => ChangeState(GameState.CastleModeActive, true);
 
-    private void ChangeState(GameState gameState)
+    private void ChangeState(GameState gameState, bool withAnimations)
     {
         switch(gameState)
         {
@@ -60,7 +72,7 @@ public class GameController : Spatial
                 OnChangeStateToCastleMode();
                 break;
             case GameState.WeaponModeActive:
-                OnChangeStateToWeaponMode();
+                OnChangeStateToWeaponMode(withAnimations);
                 break;
         }
     }
@@ -70,13 +82,16 @@ public class GameController : Spatial
         _activeWeapon = null;
         _cameraController.SwitchToCastle(_castle);
         _inputTimer.Stop();
+
         _weaponView.HideWeapon();
+        _crossHair.Deactivate();
         _generalMenuView.SetStateCastleView();
     }
 
-    private void OnChangeStateToWeaponMode()
+    private void OnChangeStateToWeaponMode(bool withAnimations)
     {
-        SetActiveWeapon(_castle.Weapons[0], false);
+        SetActiveWeapon(_castle.Weapons[0], withAnimations);
+        _crossHair.Activate();
         _generalMenuView.SetStateWeaponView();
     }
 
@@ -88,7 +103,12 @@ public class GameController : Spatial
         }
     }
 
-    private void HandleWeaponControlInput(float delta)
+    private void ProcessCastleMode(float delta)
+    {
+        
+    }
+
+    private void ProcessWeaponMode(float delta)
     {
         if (_activeWeapon == null) return;
 

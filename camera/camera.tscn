@@ -6,6 +6,7 @@
 script = ExtResource( 1 )
 
 [node name="rotator_x" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.600183, 0.799863, 0, -0.799863, 0.600183, 0, 0, 0 )
 
 [node name="Camera" type="Camera" parent="rotator_x"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.91398 )

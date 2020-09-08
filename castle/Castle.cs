@@ -20,4 +20,9 @@ public class Castle : Spatial
 
         Weapons = _weaponsParent.GetChildren().OfType<IWeapon>().ToList();
     }
+
+    public Vector3 GetCenter()
+    {
+        return GlobalTransform.origin + new Vector3(16.0f, 0.0f, 12.0f);
+    }
 }

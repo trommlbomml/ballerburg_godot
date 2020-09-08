@@ -5,6 +5,7 @@ public class CameraController : Spatial
 {
     [Export] public float AnimationSpeedCannon { get; set; } = 0.5f;
     [Export] public float AnimationSpeedTargetHit { get; set; } = 0.25f;
+    [Export] public float MovementSpeed { get; set; } = 8f;
     
     private static readonly Vector3 DistanceToHitTarget = new Vector3(1, 1, 8);
     private static readonly Vector3 DistanceToWeapon = new Vector3(0.4f, 0.5f, 0.8f);
@@ -36,7 +37,7 @@ public class CameraController : Spatial
         
         if (_castle != null)
         {
-            HandleCastleMode();
+            HandleCastleMode(delta);
         }
     }
 
@@ -58,9 +59,31 @@ public class CameraController : Spatial
         }
     }
 
-    private void HandleCastleMode()
+    private void HandleCastleMode(float delta)
     {
+        var motion = Vector3.Zero;
+        if (Input.IsActionPressed("camera_left"))
+        {
+            motion.x = -1;
+        }
+        else if (Input.IsActionPressed("camera_right"))
+        {
+            motion.x = 1;
+        }
 
+        if (Input.IsActionPressed("camera_forward"))
+        {
+            motion.z = -1;
+        }
+        else if (Input.IsActionPressed("camera_backwards"))
+        {
+            motion.z = 1;
+        }
+
+        if (motion.LengthSquared() > 0)
+        {
+            Translate(motion.Normalized() * MovementSpeed * delta);
+        }
     }
 
     private void AnimateToTargetPosition(Vector3 position)
@@ -84,7 +107,10 @@ public class CameraController : Spatial
     {
         _attachedWeapon = weapon;
         _castle = null;
+
         _camera.Translation = DistanceToWeapon;
+        _rotatorX.Rotation = Vector3.Zero;
+
         if (animate)
         {
             AnimateToWeapon(_attachedWeapon);
@@ -101,6 +127,9 @@ public class CameraController : Spatial
         _castle = castle;
 
         _camera.Translation = DistanceToCastle;
+        Translation = _castle.GetCenter();
+        _rotatorX.Rotation = new Vector3(-(float)Math.PI * 0.2f, 0.0f, 0.0f);
+        Rotation = Vector3.Zero;
     }
 
     public void OnTweenAllCompleted()
