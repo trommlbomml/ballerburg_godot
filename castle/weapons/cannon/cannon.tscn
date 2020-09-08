@@ -1,0 +1,78 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://prototyping/materials/metallic.tres" type="Material" id=1]
+[ext_resource path="res://prototyping/materials/wood.tres" type="Material" id=2]
+[ext_resource path="res://castle/weapons/cannon/Cannon.cs" type="Script" id=3]
+
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 1, 0.1, 1 )
+
+[sub_resource type="CylinderMesh" id=2]
+top_radius = 0.35
+bottom_radius = 0.35
+height = 0.1
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 1, 1, 1 )
+
+[sub_resource type="CylinderMesh" id=4]
+top_radius = 0.02
+bottom_radius = 0.02
+height = 1.0
+
+[sub_resource type="CylinderMesh" id=5]
+top_radius = 0.1
+bottom_radius = 0.15
+height = 0.5
+
+[sub_resource type="CylinderMesh" id=6]
+top_radius = 0.15
+bottom_radius = 0.12
+height = 0.25
+
+[node name="cannon" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 0.834778, 0, 0, 0, 0.459656, 0, 0, 0, 0.97908, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="rotator_y" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
+
+[node name="MeshInstance5" type="MeshInstance" parent="rotator_y"]
+mesh = SubResource( 2 )
+material/0 = ExtResource( 1 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="rotator_y"]
+transform = Transform( 0.0779008, 0, 0, 0, 0.355911, 0, 0, 0, 0.331976, 0.271418, 0.197444, 0 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 2 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="rotator_y"]
+transform = Transform( 0.0779008, 0, 0, 0, 0.355911, 0, 0, 0, 0.331976, -0.270147, 0.197444, -0.00127101 )
+mesh = SubResource( 3 )
+material/0 = ExtResource( 2 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="rotator_y"]
+transform = Transform( -2.99765e-08, 0.685782, 0, -1.01459, -4.4349e-08, 0, 0, 0, 1.01459, 0, 0.298751, 0 )
+mesh = SubResource( 4 )
+material/0 = ExtResource( 1 )
+
+[node name="rotator_x" type="Spatial" parent="rotator_y"]
+transform = Transform( 1, 5.82077e-11, 4.65661e-10, 3.29367e-11, 0.858352, -0.513062, -3.61391e-10, 0.513062, 0.858352, 0.000652614, 0.302704, -0.000131689 )
+
+[node name="MeshInstance" type="MeshInstance" parent="rotator_y/rotator_x"]
+transform = Transform( 0.999986, 0.00277614, 0.00431066, -0.00431067, -5.85243e-06, 0.99999, 0.00277613, -0.999996, 6.11474e-06, 0.000303946, -0.0200342, -0.250077 )
+mesh = SubResource( 5 )
+material/0 = ExtResource( 1 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="rotator_y/rotator_x"]
+transform = Transform( 0.999987, 0.00277614, 0.00431066, -0.00431067, -5.73328e-06, 0.99999, 0.00277613, -0.999996, 6.23398e-06, -0.000399254, -0.019762, 0.115 )
+mesh = SubResource( 6 )
+material/0 = ExtResource( 1 )
+
+[node name="bullet_spawn" type="Position3D" parent="rotator_y/rotator_x"]
+transform = Transform( 1, -6.40284e-10, 1.28057e-09, 1.16415e-10, 1, -2.98023e-08, -4.65661e-10, -2.98023e-08, 1, 0.00107742, -0.0119474, -0.508036 )

@@ -1,0 +1,182 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/WeaponView.cs" type="Script" id=1]
+
+[node name="weapon_view" type="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -155.5
+margin_top = -114.0
+margin_right = 155.5
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hbox" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -149.5
+margin_top = -104.0
+margin_right = 149.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="state" type="PanelContainer" parent="hbox"]
+margin_top = 28.0
+margin_right = 108.0
+margin_bottom = 104.0
+size_flags_vertical = 8
+
+[node name="vbox" type="VBoxContainer" parent="hbox/state"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 101.0
+margin_bottom = 69.0
+
+[node name="status_label" type="Label" parent="hbox/state/vbox"]
+margin_right = 94.0
+margin_bottom = 14.0
+text = "150 Gold"
+align = 1
+
+[node name="destroy_button" type="Button" parent="hbox/state/vbox"]
+margin_top = 18.0
+margin_right = 94.0
+margin_bottom = 38.0
+text = "    Destroy    "
+
+[node name="repair_button" type="Button" parent="hbox/state/vbox"]
+margin_top = 42.0
+margin_right = 94.0
+margin_bottom = 62.0
+text = "Repair"
+
+[node name="nav" type="PanelContainer" parent="hbox"]
+margin_left = 112.0
+margin_right = 194.0
+margin_bottom = 104.0
+size_flags_vertical = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vbox" type="VBoxContainer" parent="hbox/nav"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 75.0
+margin_bottom = 97.0
+custom_constants/separation = 8
+
+[node name="display" type="HBoxContainer" parent="hbox/nav/vbox"]
+margin_right = 68.0
+margin_bottom = 14.0
+custom_constants/separation = 16
+
+[node name="angle_label" type="Label" parent="hbox/nav/vbox/display"]
+margin_right = 24.0
+margin_bottom = 14.0
+text = "000"
+
+[node name="power_label" type="Label" parent="hbox/nav/vbox/display"]
+margin_left = 40.0
+margin_right = 64.0
+margin_bottom = 14.0
+text = "000"
+
+[node name="controls" type="GridContainer" parent="hbox/nav/vbox"]
+margin_top = 22.0
+margin_right = 68.0
+margin_bottom = 90.0
+custom_constants/vseparation = 4
+custom_constants/hseparation = 4
+columns = 3
+
+[node name="nop1" type="Button" parent="hbox/nav/vbox/controls"]
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="add_power_button" type="Button" parent="hbox/nav/vbox/controls"]
+margin_left = 24.0
+margin_right = 44.0
+margin_bottom = 20.0
+text = "+"
+
+[node name="nop2" type="Button" parent="hbox/nav/vbox/controls"]
+margin_left = 48.0
+margin_right = 68.0
+margin_bottom = 20.0
+
+[node name="rotate_left_button" type="Button" parent="hbox/nav/vbox/controls"]
+margin_top = 24.0
+margin_right = 20.0
+margin_bottom = 44.0
+text = "<"
+
+[node name="shoot_button" type="Button" parent="hbox/nav/vbox/controls"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 44.0
+margin_bottom = 44.0
+text = "X"
+
+[node name="rotate_right_button" type="Button" parent="hbox/nav/vbox/controls"]
+margin_left = 48.0
+margin_top = 24.0
+margin_right = 68.0
+margin_bottom = 44.0
+text = ">"
+
+[node name="nop3" type="Button" parent="hbox/nav/vbox/controls"]
+margin_top = 48.0
+margin_right = 20.0
+margin_bottom = 68.0
+
+[node name="decrease_power_button" type="Button" parent="hbox/nav/vbox/controls"]
+margin_left = 24.0
+margin_top = 48.0
+margin_right = 44.0
+margin_bottom = 68.0
+text = "-"
+
+[node name="nop4" type="Button" parent="hbox/nav/vbox/controls"]
+margin_left = 48.0
+margin_top = 48.0
+margin_right = 68.0
+margin_bottom = 68.0
+
+[node name="view" type="PanelContainer" parent="hbox"]
+margin_left = 198.0
+margin_top = 28.0
+margin_right = 299.0
+margin_bottom = 104.0
+size_flags_vertical = 8
+
+[node name="vbox" type="VBoxContainer" parent="hbox/view"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 94.0
+margin_bottom = 69.0
+
+[node name="status_label" type="Label" parent="hbox/view/vbox"]
+margin_right = 87.0
+margin_bottom = 14.0
+text = "Canon (100%)"
+align = 1
+
+[node name="Button" type="Button" parent="hbox/view/vbox"]
+margin_top = 18.0
+margin_right = 87.0
+margin_bottom = 38.0
+text = "Reset"
+
+[node name="Button2" type="Button" parent="hbox/view/vbox"]
+margin_top = 42.0
+margin_right = 87.0
+margin_bottom = 62.0
+text = "Hit View"

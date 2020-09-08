@@ -1,0 +1,32 @@
+﻿<Project Sdk="Godot.NET.Sdk/3.2.3">
+  <PropertyGroup>
+    <ProjectGuid>{B96E784F-718F-494C-8E88-63EDB490D6E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Ballerburg</RootNamespace>
+    <AssemblyName>Ballerburg</AssemblyName>
+    <GodotProjectGeneratorVersion>1.0.0.0</GodotProjectGeneratorVersion>
+    <TargetFramework>net472</TargetFramework>
+    <!--The following properties were overriden during migration to prevent errors.
+    Enabling them may require other manual changes to the project and its files.-->
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Deterministic>false</Deterministic>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="bullets\Bullet.cs" />
+    <Compile Include="bullets\Bullets.cs" />
+    <Compile Include="camera\CameraController.cs" />
+    <Compile Include="castle\buildings\Building.cs" />
+    <Compile Include="castle\buildings\IBuilding.cs" />
+    <Compile Include="castle\Castle.cs" />
+    <Compile Include="ui\CrossHair.cs" />
+    <Compile Include="ui\WeaponView.cs" />
+    <Compile Include="castle\weapons\cannon\Cannon.cs" />
+    <Compile Include="castle\weapons\IWeapon.cs" />
+    <Compile Include="logic\GameController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+</Project>
