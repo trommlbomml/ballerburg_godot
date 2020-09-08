@@ -1,18 +1,28 @@
 using Godot;
 using System;
 
+public enum GameState
+{
+    WeaponModeActive,
+    CastleModeActive
+}
+
 public class GameController : Spatial
 {
     [Export] public NodePath CameraPath { get; set; }
     [Export] public NodePath CastlePath { get; set; }
     [Export] public NodePath BulletsPath { get; set; }
     [Export] public NodePath WeaponViewPath { get; set; }
+    [Export] public NodePath GeneralMenuViewPath { get; set; }
 
+    private GameState _gameState;
     private Castle _castle;
     private CameraController _cameraController;
     private Bullets _bullets;
-    private WeaponView _weaponView;
     private Timer _inputTimer;
+
+    private WeaponView _weaponView;
+    private GeneralMenuView _generalMenuView;
 
     private IWeapon _activeWeapon;
     private int _powerDirection = 0;
@@ -23,17 +33,51 @@ public class GameController : Spatial
         _castle = GetNode<Castle>(CastlePath);
         _bullets = GetNode<Bullets>(BulletsPath);
         _weaponView = GetNode<WeaponView>(WeaponViewPath);
+        _generalMenuView = GetNode<GeneralMenuView>(GeneralMenuViewPath);
         _inputTimer = GetNode<Timer>("input_timer");
 
         _bullets.BulletHitsTarget += OnBulletHitTarget;
-        System.Diagnostics.Debug.WriteLine(_castle.Weapons == null);
-        var w = _castle.Weapons[0];
-        SetActiveWeapon(_castle.Weapons[0], false);
+        _generalMenuView.ShowCastleView += OnShowCastleView;
+        _generalMenuView.ShowWeaponView += OnShowWeaponView;
+
+        ChangeState(GameState.WeaponModeActive);
     }
 
     public override void _Process(float delta)
     {
         HandleWeaponControlInput(delta);
+    }
+
+    private void OnShowWeaponView() => ChangeState(GameState.WeaponModeActive);
+
+    private void OnShowCastleView() => ChangeState(GameState.CastleModeActive);
+
+    private void ChangeState(GameState gameState)
+    {
+        switch(gameState)
+        {
+            case GameState.CastleModeActive:
+                OnChangeStateToCastleMode();
+                break;
+            case GameState.WeaponModeActive:
+                OnChangeStateToWeaponMode();
+                break;
+        }
+    }
+
+    private void OnChangeStateToCastleMode()
+    {
+        _activeWeapon = null;
+        _cameraController.SwitchToCastle(_castle);
+        _inputTimer.Stop();
+        _weaponView.HideWeapon();
+        _generalMenuView.SetStateCastleView();
+    }
+
+    private void OnChangeStateToWeaponMode()
+    {
+        SetActiveWeapon(_castle.Weapons[0], false);
+        _generalMenuView.SetStateWeaponView();
     }
 
     private void OnInputTimerTimeout()

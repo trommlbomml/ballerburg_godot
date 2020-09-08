@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/GeneralMenuView.cs" type="Script" id=1]
+
+[node name="general_menu" type="VBoxContainer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -141.0
+margin_top = -192.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="options_button" type="Button" parent="."]
+margin_right = 141.0
+margin_bottom = 20.0
+disabled = true
+text = "Options"
+
+[node name="magic_button" type="Button" parent="."]
+margin_top = 24.0
+margin_right = 141.0
+margin_bottom = 44.0
+disabled = true
+text = "Magic"
+
+[node name="research_button" type="Button" parent="."]
+margin_top = 48.0
+margin_right = 141.0
+margin_bottom = 68.0
+disabled = true
+text = "Research"
+
+[node name="autorepair_button" type="Button" parent="."]
+margin_top = 72.0
+margin_right = 141.0
+margin_bottom = 92.0
+disabled = true
+text = "Auto Repair"
+
+[node name="build_weapon_button" type="Button" parent="."]
+margin_top = 96.0
+margin_right = 141.0
+margin_bottom = 116.0
+disabled = true
+text = "Build Weapon"
+
+[node name="build_building_button" type="Button" parent="."]
+margin_top = 120.0
+margin_right = 141.0
+margin_bottom = 140.0
+disabled = true
+text = "Build Building"
+
+[node name="view_weapon_button" type="Button" parent="."]
+margin_top = 144.0
+margin_right = 141.0
+margin_bottom = 164.0
+text = "Weapon View"
+
+[node name="view_castle_button" type="Button" parent="."]
+margin_top = 168.0
+margin_right = 141.0
+margin_bottom = 188.0
+text = "Castle View"
+[connection signal="pressed" from="view_weapon_button" to="." method="OnViewWeaponButtonPressed"]
+[connection signal="pressed" from="view_castle_button" to="." method="OnViewCastleButtonPressed"]

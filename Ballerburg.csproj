@@ -23,6 +23,7 @@
     <Compile Include="castle\buildings\IBuilding.cs" />
     <Compile Include="castle\Castle.cs" />
     <Compile Include="ui\CrossHair.cs" />
+    <Compile Include="ui\GeneralMenuView.cs" />
     <Compile Include="ui\WeaponView.cs" />
     <Compile Include="castle\weapons\cannon\Cannon.cs" />
     <Compile Include="castle\weapons\IWeapon.cs" />

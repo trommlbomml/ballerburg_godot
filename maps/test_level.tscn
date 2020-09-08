@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://terraindata/water_normal_2.png" type="Texture" id=1]
 [ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://castle/buildings/walls/tower.tscn" type="PackedScene" id=17]
 [ext_resource path="res://castle/buildings/walls/gate.tscn" type="PackedScene" id=18]
 [ext_resource path="res://ui/cross_hair.tscn" type="PackedScene" id=19]
+[ext_resource path="res://ui/general_menu.tscn" type="PackedScene" id=20]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -333,8 +334,11 @@ __meta__ = {
 
 [node name="cross_hair" parent="ui_root" instance=ExtResource( 19 )]
 
+[node name="general_menu" parent="ui_root" instance=ExtResource( 20 )]
+
 [node name="_game_controller" parent="." instance=ExtResource( 10 )]
 CameraPath = NodePath("../camera")
 CastlePath = NodePath("../castle")
 BulletsPath = NodePath("../bullets")
 WeaponViewPath = NodePath("../ui_root/weapon_view")
+GeneralMenuViewPath = NodePath("../ui_root/general_menu")
