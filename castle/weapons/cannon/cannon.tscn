@@ -4,7 +4,6 @@
 [ext_resource path="res://prototyping/materials/wood.tres" type="Material" id=2]
 [ext_resource path="res://castle/weapons/cannon/Cannon.cs" type="Script" id=3]
 
-
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 1, 0.1, 1 )
 
