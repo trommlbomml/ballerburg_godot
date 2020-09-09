@@ -13,6 +13,10 @@ public class Building : StaticBody, IBuilding
 
     public int HealthPercentage => (int)Math.Round((float)_hitPoints / (float)MaxHitPoints * 100.0f, MidpointRounding.AwayFromZero);
 
+    public int CastleX { get; private set; }
+    
+    public int CastleZ { get; private set; }
+
     public override void _Ready()
     {
         _hitPoints = MaxHitPoints;
@@ -22,5 +26,11 @@ public class Building : StaticBody, IBuilding
     {
         _hitPoints = Math.Max(0, _hitPoints - amount);
         return _hitPoints == 0;
+    }
+
+    public void Place()
+    {
+        CastleX = (int)Math.Round(Translation.x, MidpointRounding.AwayFromZero);
+        CastleZ = (int)Math.Round(Translation.z, MidpointRounding.AwayFromZero);
     }
 }

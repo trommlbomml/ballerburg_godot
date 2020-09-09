@@ -13,10 +13,16 @@ namespace Ballerburg.castle.buildings
 
         int HealthPercentage { get; }
 
-        bool Damage(int amount);
-
         int Width { get; }
 
         int Height { get; }
+
+        int CastleX { get; }
+
+        int CastleZ { get; }
+
+        bool Damage(int amount);
+
+        void Place();
     }
 }
