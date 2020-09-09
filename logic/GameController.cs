@@ -49,7 +49,7 @@ public class GameController : Spatial
         _menuView.ActivateCastleView += OnShowCastleView;
         _menuView.Build += OnBuildBuilding;
 
-        _ownMinimap.AttachCastle(_castle);
+        _ownMinimap.RefreshFromCastle(_castle);
 
         _menuView.SetMenuState(MenuState.RootMenuCastleView);
         ChangeState(GameState.CastleView);
@@ -62,12 +62,8 @@ public class GameController : Spatial
             case GameState.WeaponView:
                 ProcessWeaponMode(delta);
                 break;
-            case GameState.Building:
-                ProcessBuildingMode();
-                break;
         }
     }
-
 
     private void OnBulletHitTarget(BulletHitInfo hitInfo)
     {
@@ -89,7 +85,15 @@ public class GameController : Spatial
 
     private void OnBuildBuilding(BuildingType buildingType)
     {
+        _castle.PlaceNewBuilding(buildingType, _cameraController, OnFinishedBuilding);
         ChangeState(GameState.Building);
+    }
+
+    private void OnFinishedBuilding()
+    {
+        _ownMinimap.RefreshFromCastle(_castle);
+        _menuView.SetMenuState(MenuState.BuildingSelection);
+        ChangeState(GameState.CastleView);
     }
 
     private void OnInputTimerTimeout()
@@ -198,16 +202,6 @@ public class GameController : Spatial
             _bullets.SpawnBullet(bullet);
         }
     }
-
-    private void ProcessBuildingMode()
-    {
-        if (Input.IsActionJustPressed("cancel_build"))
-        {
-            _menuView.SetMenuState(MenuState.BuildingSelection);
-            ChangeState(GameState.CastleView);
-        }
-    }
-
     private void SetActiveWeapon(IWeapon weapon, bool animate = true)
     {
         _cameraController.AttachTo(weapon, animate);

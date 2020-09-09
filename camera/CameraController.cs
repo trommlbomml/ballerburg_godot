@@ -118,6 +118,18 @@ public class CameraController : Spatial
         Rotation = Vector3.Zero;
     }
 
+    public Vector3 GetPickingRayPosition()
+    {
+        var position = GetViewport().GetMousePosition();
+        return _camera.ProjectRayOrigin(position);
+    }
+
+    public Vector3 GetPickingRayEnd(float length)
+    {
+        var position = GetViewport().GetMousePosition();
+        return _camera.ProjectRayOrigin(position) + _camera.ProjectRayNormal(position) * length;
+    }
+
     private void HandleAttachedToWeapon()
     {
         if (!IsAnimating)

@@ -10,8 +10,12 @@ public class Minimap : TextureRect
     [Export] public PackedScene Tile2x2 { get; set; }
     [Export] public PackedScene Tile4x4 { get; set; }
 
-    public void AttachCastle(Castle castle)
+    public void RefreshFromCastle(Castle castle)
     {
+        foreach(Node child in GetChildren())
+        {
+            child.QueueFree();
+        }
         foreach(var building in castle.Buildings)
         {
             var sprite = CreateSpriteFromBuilding(building);

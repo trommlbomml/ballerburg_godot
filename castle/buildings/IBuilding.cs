@@ -1,3 +1,5 @@
+using Godot;
+
 namespace Ballerburg.castle.buildings
 {
     public enum BuildingType
@@ -23,6 +25,7 @@ namespace Ballerburg.castle.buildings
 
         bool Damage(int amount);
 
+        void MoveTo(Vector3 localCoords);
         void Place();
     }
 }

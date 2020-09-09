@@ -28,7 +28,18 @@ public class Building : StaticBody, IBuilding
         return _hitPoints == 0;
     }
 
+    public void MoveTo(Vector3 localCoords)
+    {
+        Translation = localCoords;
+        UpdateCastlePosition();
+    }
+
     public void Place()
+    {
+        UpdateCastlePosition();
+    }
+
+    private void UpdateCastlePosition()
     {
         CastleX = (int)Math.Round(Translation.x, MidpointRounding.AwayFromZero);
         CastleZ = (int)Math.Round(Translation.z, MidpointRounding.AwayFromZero);
