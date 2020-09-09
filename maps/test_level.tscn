@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://terraindata/water_normal_2.png" type="Texture" id=1]
 [ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=2]
@@ -10,7 +10,7 @@
 [ext_resource path="res://castle/castle.tscn" type="PackedScene" id=8]
 [ext_resource path="res://camera/camera.tscn" type="PackedScene" id=9]
 [ext_resource path="res://logic/game_controller.tscn" type="PackedScene" id=10]
-[ext_resource path="res://castle/buildings/walls/wall_edge.tscn" type="PackedScene" id=11]
+[ext_resource path="res://castle/buildings/walls/wall_edge_ne.tscn" type="PackedScene" id=11]
 [ext_resource path="res://castle/buildings/walls/wall_we.tscn" type="PackedScene" id=12]
 [ext_resource path="res://bullets/bullets.tscn" type="PackedScene" id=13]
 [ext_resource path="res://castle/buildings/farmer_house/farmer_house.tscn" type="PackedScene" id=14]
@@ -22,6 +22,9 @@
 [ext_resource path="res://ui/general_menu.tscn" type="PackedScene" id=20]
 [ext_resource path="res://ui/minimap/minimap.tscn" type="PackedScene" id=21]
 [ext_resource path="res://castle/buildings/walls/wall_ns.tscn" type="PackedScene" id=22]
+[ext_resource path="res://castle/buildings/walls/wall_edge_nw.tscn" type="PackedScene" id=23]
+[ext_resource path="res://castle/buildings/walls/wall_edge_sw.tscn" type="PackedScene" id=24]
+[ext_resource path="res://castle/buildings/walls/wall_edge_se.tscn" type="PackedScene" id=25]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -117,18 +120,6 @@ anims/water_flow = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, 20, 47 )
 
 [node name="buildings" type="Spatial" parent="castle"]
-
-[node name="edge1" parent="castle/buildings" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5, 0, 15.5 )
-
-[node name="edge2" parent="castle/buildings" instance=ExtResource( 11 )]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 19.5, 0, 15.5 )
-
-[node name="edge3" parent="castle/buildings" instance=ExtResource( 11 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 23.5, 0, 10.5 )
-
-[node name="edge4" parent="castle/buildings" instance=ExtResource( 11 )]
-transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 18.5, 0, 10.5 )
 
 [node name="tower" parent="castle/buildings" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 17 )
@@ -252,6 +243,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 15 )
 
 [node name="wall_ns8" parent="castle/buildings" instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 16 )
+
+[node name="wall_edge_model" parent="castle/buildings" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 10 )
+
+[node name="wall_edge_model3" parent="castle/buildings" instance=ExtResource( 25 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 15 )
+
+[node name="wall_edge_model2" parent="castle/buildings" instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, 10 )
+
+[node name="wall_edge_model4" parent="castle/buildings" instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, 15 )
 
 [node name="weapons" type="Spatial" parent="castle"]
 

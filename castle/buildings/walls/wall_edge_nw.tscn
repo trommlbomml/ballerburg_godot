@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://castle/buildings/walls/models/Material_001.material" type="Material" id=1]
-[ext_resource path="res://castle/buildings/Building.cs" type="Script" id=2]
+[ext_resource path="res://castle/buildings/Building.cs" type="Script" id=1]
+[ext_resource path="res://castle/buildings/walls/models/Material_001.material" type="Material" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cube"
@@ -12,7 +12,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 1056,
-"material": ExtResource( 1 ),
+"material": ExtResource( 2 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 484
@@ -22,16 +22,15 @@ surfaces/0 = {
 extents = Vector3( 0.45, 1.5, 0.45 )
 
 [node name="wall_edge_model" type="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.4 )
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 Width = 1
 Height = 1
 
 [node name="Cube" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.4, 0.5 )
 mesh = SubResource( 1 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 1.5, -0.05 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1.5, 0.45 )
 shape = SubResource( 2 )
