@@ -3,9 +3,9 @@ using Godot;
 
 public enum GameState
 {
-    WeaponModeActive,
-    CastleModeActive,
-    BuildingActive
+    WeaponView,
+    CastleView,
+    Building
 }
 
 public class GameController : Spatial
@@ -51,16 +51,52 @@ public class GameController : Spatial
 
         _ownMinimap.AttachCastle(_castle);
 
-        ChangeState(GameState.CastleModeActive);
+        _menuView.SetMenuState(MenuState.RootMenuCastleView);
+        ChangeState(GameState.CastleView);
     }
 
     public override void _Process(float delta)
     {
         switch(_gameState)
         {
-            case GameState.WeaponModeActive:
+            case GameState.WeaponView:
                 ProcessWeaponMode(delta);
                 break;
+            case GameState.Building:
+                ProcessBuildingMode();
+                break;
+        }
+    }
+
+
+    private void OnBulletHitTarget(BulletHitInfo hitInfo)
+    {
+        var buildingHit = hitInfo.Building?.BuildingType;
+        System.Diagnostics.Debug.WriteLine($"Hitting {hitInfo.Building?.BuildingType.ToString() ?? "Nothing"} at {hitInfo.WorldCoords}");
+    }
+
+    private void OnShowWeaponView()
+    {
+        if (_gameState == GameState.WeaponView) return;
+        ChangeState(GameState.WeaponView);
+    }
+
+    private void OnShowCastleView() 
+    {
+        if (_gameState == GameState.CastleView) return;
+        ChangeState(GameState.CastleView);
+    }
+
+    private void OnBuildBuilding(BuildingType buildingType)
+    {
+        ChangeState(GameState.Building);
+    }
+
+    private void OnInputTimerTimeout()
+    {
+        if (_activeWeapon != null)
+        {
+            _activeWeapon.Power += _powerDirection;
         }
     }
 
@@ -70,14 +106,16 @@ public class GameController : Spatial
 
         switch(gameState)
         {
-            case GameState.CastleModeActive:
+            case GameState.CastleView:
                 OnChangeStateToCastleMode();
                 break;
-            case GameState.WeaponModeActive:
+            case GameState.WeaponView:
                 OnChangeStateToWeaponMode();
                 break;
+            case GameState.Building:
+                OnChangeStateToBuildingMode();
+                break;
         }
-        
     }
 
     private void OnChangeStateToCastleMode()
@@ -96,12 +134,9 @@ public class GameController : Spatial
         _crossHair.Activate();
     }
 
-    private void OnInputTimerTimeout()
+    private void OnChangeStateToBuildingMode()
     {
-        if (_activeWeapon != null)
-        {
-            _activeWeapon.Power += _powerDirection;
-        }
+        _cameraController.SwitchToBuildMode(_castle);
     }
 
     private void ProcessWeaponMode(float delta)
@@ -164,34 +199,20 @@ public class GameController : Spatial
         }
     }
 
+    private void ProcessBuildingMode()
+    {
+        if (Input.IsActionJustPressed("cancel_build"))
+        {
+            _menuView.SetMenuState(MenuState.BuildingSelection);
+            ChangeState(GameState.CastleView);
+        }
+    }
+
     private void SetActiveWeapon(IWeapon weapon, bool animate = true)
     {
         _cameraController.AttachTo(weapon, animate);
         _activeWeapon = weapon;
         _inputTimer.Stop();
         _weaponView.ShowWeapon(weapon);
-    }
-
-    private void OnBulletHitTarget(BulletHitInfo hitInfo)
-    {
-        var buildingHit = hitInfo.Building?.BuildingType;
-        System.Diagnostics.Debug.WriteLine($"Hitting {hitInfo.Building?.BuildingType.ToString() ?? "Nothing"} at {hitInfo.WorldCoords}");
-    }
-
-    private void OnShowWeaponView() 
-    {
-        if (_gameState == GameState.WeaponModeActive) return;
-        ChangeState(GameState.WeaponModeActive);
-    }
-
-    private void OnShowCastleView() 
-    {
-        if (_gameState == GameState.CastleModeActive) return;
-        ChangeState(GameState.CastleModeActive);
-    }
-
-    private void OnBuildBuilding(BuildingType buildingType)
-    {
-        _cameraController.SwitchToBuildMode(_castle);
     }
 }
