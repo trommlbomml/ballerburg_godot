@@ -41,11 +41,6 @@ public class CameraController : Spatial
         }
     }
 
-    public override void _Input()
-    {
-
-    }
-
     private void HandleAttachedToWeapon()
     {
         if (!IsAnimating)
