@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://terraindata/water_normal_2.png" type="Texture" id=1]
 [ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=2]
@@ -11,7 +11,7 @@
 [ext_resource path="res://camera/camera.tscn" type="PackedScene" id=9]
 [ext_resource path="res://logic/game_controller.tscn" type="PackedScene" id=10]
 [ext_resource path="res://castle/buildings/walls/wall_edge.tscn" type="PackedScene" id=11]
-[ext_resource path="res://castle/buildings/walls/wall.tscn" type="PackedScene" id=12]
+[ext_resource path="res://castle/buildings/walls/wall_we.tscn" type="PackedScene" id=12]
 [ext_resource path="res://bullets/bullets.tscn" type="PackedScene" id=13]
 [ext_resource path="res://castle/buildings/farmer_house/farmer_house.tscn" type="PackedScene" id=14]
 [ext_resource path="res://ui/weapon_view.tscn" type="PackedScene" id=15]
@@ -21,6 +21,7 @@
 [ext_resource path="res://ui/cross_hair.tscn" type="PackedScene" id=19]
 [ext_resource path="res://ui/general_menu.tscn" type="PackedScene" id=20]
 [ext_resource path="res://ui/minimap/minimap.tscn" type="PackedScene" id=21]
+[ext_resource path="res://castle/buildings/walls/wall_ns.tscn" type="PackedScene" id=22]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -133,46 +134,37 @@ transform = Transform( 7.54979e-08, 0, -1, 0, 1, 0, 1, 0, 7.54979e-08, 18.5, 0, 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 17.1 )
 
 [node name="tower2" parent="castle/buildings" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 17.1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 17 )
 
 [node name="edge5" parent="castle/buildings" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 8.1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, 8 )
 
 [node name="tower3" parent="castle/buildings" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 8.1 )
 
-[node name="wall_model" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 9, 0, 17.1 )
-
-[node name="wall_model2" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 9, 0, 16.1 )
-
-[node name="wall_model3" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 9, 0, 15.1 )
-
 [node name="wall_model15" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 8.1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 8 )
 
 [node name="wall_model16" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 8.1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 8 )
 
 [node name="wall_model17" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8.1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 8 )
 
 [node name="wall_model18" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 8.1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 8 )
 
 [node name="wall_model19" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 8.1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 8 )
 
 [node name="wall_model20" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 8.1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 8 )
 
 [node name="wall_model21" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 8.1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 8 )
 
 [node name="wall_model22" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 8.1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 8 )
 
 [node name="wall_model31" parent="castle/buildings" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 0, 10.1 )
@@ -216,12 +208,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 17.1 )
 [node name="wall_model30" parent="castle/buildings" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 17.1 )
 
-[node name="wall_model4" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 9, 0, 14.1 )
-
-[node name="wall_model5" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 9, 0, 13.1 )
-
 [node name="wall_model9" parent="castle/buildings" instance=ExtResource( 12 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 23, 0, 15.1 )
 
@@ -240,17 +226,32 @@ transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 23, 0, 
 [node name="wall_model12" parent="castle/buildings" instance=ExtResource( 12 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 23, 0, 12.1 )
 
-[node name="wall_model6" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 9, 0, 12.1 )
-
-[node name="wall_model7" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 9, 0, 11.1 )
-
-[node name="wall_model8" parent="castle/buildings" instance=ExtResource( 12 )]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 9, 0, 10.1 )
-
 [node name="gate_model" parent="castle/buildings" instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 17.1 )
+
+[node name="wall_ns" parent="castle/buildings" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 9 )
+
+[node name="wall_ns2" parent="castle/buildings" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 10 )
+
+[node name="wall_ns3" parent="castle/buildings" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 11 )
+
+[node name="wall_ns4" parent="castle/buildings" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 12 )
+
+[node name="wall_ns5" parent="castle/buildings" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 13 )
+
+[node name="wall_ns6" parent="castle/buildings" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 14 )
+
+[node name="wall_ns7" parent="castle/buildings" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 15 )
+
+[node name="wall_ns8" parent="castle/buildings" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 16 )
 
 [node name="weapons" type="Spatial" parent="castle"]
 

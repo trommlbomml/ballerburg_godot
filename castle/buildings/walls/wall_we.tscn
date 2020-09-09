@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://castle/buildings/walls/models/Material_002.material" type="Material" id=1]
-[ext_resource path="res://castle/buildings/Building.cs" type="Script" id=2]
+[ext_resource path="res://castle/buildings/Building.cs" type="Script" id=1]
+[ext_resource path="res://castle/buildings/walls/models/Material_002.material" type="Material" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cube001"
@@ -12,7 +12,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 564,
-"material": ExtResource( 1 ),
+"material": ExtResource( 2 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 289
@@ -22,7 +22,7 @@ surfaces/0 = {
 extents = Vector3( 0.5, 1.5, 0.4 )
 
 [node name="wall_model" type="StaticBody"]
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 Width = 1
 Height = 1
 
