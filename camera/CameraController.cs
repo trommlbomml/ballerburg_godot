@@ -39,7 +39,7 @@ public class CameraController : Spatial
     {
         if (_castle == null) return;
 
-        if (inputEvent is InputEventMouseButton mouseButtonEvent && mouseButtonEvent.ButtonIndex == 1)
+        if (inputEvent is InputEventMouseButton mouseButtonEvent && mouseButtonEvent.ButtonIndex == 2)
         {
             _leftMousePressed = mouseButtonEvent.Pressed;
             _lastPosition = mouseButtonEvent.Position;
