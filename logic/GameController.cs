@@ -1,5 +1,5 @@
+using Ballerburg.castle.buildings;
 using Godot;
-using System;
 
 public enum GameState
 {
@@ -14,8 +14,7 @@ public class GameController : Spatial
     [Export] public NodePath CastlePath { get; set; }
     [Export] public NodePath BulletsPath { get; set; }
     [Export] public NodePath WeaponViewPath { get; set; }
-    [Export] public NodePath GeneralMenuViewPath { get; set; }
-    [Export] public NodePath BuildMenuViewPath { get; set; }
+    [Export] public NodePath MenuViewPath { get; set; }
 
     [Export] public NodePath CrossHairPath { get; set; }
     [Export] public NodePath OwnMinimapPath { get; set; }
@@ -29,8 +28,7 @@ public class GameController : Spatial
     private Minimap _ownMinimap;
     private CrossHair _crossHair;
     private WeaponView _weaponView;
-    private GeneralMenuView _generalMenuView;
-    private BuildMenuView _buildMenuView;
+    private MenuView _menuView;
 
     private IWeapon _activeWeapon;
     private int _powerDirection = 0;
@@ -41,22 +39,19 @@ public class GameController : Spatial
         _castle = GetNode<Castle>(CastlePath);
         _bullets = GetNode<Bullets>(BulletsPath);
         _weaponView = GetNode<WeaponView>(WeaponViewPath);
-        _generalMenuView = GetNode<GeneralMenuView>(GeneralMenuViewPath);
-        _buildMenuView = GetNode<BuildMenuView>(BuildMenuViewPath);
+        _menuView = GetNode<MenuView>(MenuViewPath);
         _crossHair = GetNode<CrossHair>(CrossHairPath);
         _ownMinimap = GetNode<Minimap>(OwnMinimapPath);
         _inputTimer = GetNode<Timer>("input_timer");
 
         _bullets.BulletHitsTarget += OnBulletHitTarget;
-        _generalMenuView.ShowCastleView += OnShowCastleView;
-        _generalMenuView.ShowWeaponView += OnShowWeaponView;
-        _generalMenuView.BuildBuilding += OnBuildBuilding;
-        _buildMenuView.BuildFarmerHouse += OnBuildFarmerHouse;
-        _buildMenuView.Back += OnBackFromBuildMenu;
+        _menuView.ActivateWeaponView += OnShowWeaponView;
+        _menuView.ActivateCastleView += OnShowCastleView;
+        _menuView.Build += OnBuildBuilding;
 
         _ownMinimap.AttachCastle(_castle);
 
-        ChangeState(GameState.WeaponModeActive, false);
+        ChangeState(GameState.CastleModeActive);
     }
 
     public override void _Process(float delta)
@@ -69,17 +64,20 @@ public class GameController : Spatial
         }
     }
 
-    private void ChangeState(GameState gameState, bool withAnimations)
+    private void ChangeState(GameState gameState)
     {
+        _gameState = gameState;
+
         switch(gameState)
         {
             case GameState.CastleModeActive:
                 OnChangeStateToCastleMode();
                 break;
             case GameState.WeaponModeActive:
-                OnChangeStateToWeaponMode(withAnimations);
+                OnChangeStateToWeaponMode();
                 break;
         }
+        
     }
 
     private void OnChangeStateToCastleMode()
@@ -90,14 +88,12 @@ public class GameController : Spatial
 
         _weaponView.HideWeapon();
         _crossHair.Deactivate();
-        _generalMenuView.SetStateCastleView();
     }
 
-    private void OnChangeStateToWeaponMode(bool withAnimations)
+    private void OnChangeStateToWeaponMode()
     {
-        SetActiveWeapon(_castle.Weapons[0], withAnimations);
+        SetActiveWeapon(_castle.Weapons[0], false);
         _crossHair.Activate();
-        _generalMenuView.SetStateWeaponView();
     }
 
     private void OnInputTimerTimeout()
@@ -182,26 +178,20 @@ public class GameController : Spatial
         System.Diagnostics.Debug.WriteLine($"Hitting {hitInfo.Building?.BuildingType.ToString() ?? "Nothing"} at {hitInfo.WorldCoords}");
     }
 
-    private void OnShowWeaponView() => ChangeState(GameState.WeaponModeActive, true);
-
-    private void OnShowCastleView() => ChangeState(GameState.CastleModeActive, true);
-
-    private void OnBuildBuilding()
+    private void OnShowWeaponView() 
     {
-        _buildMenuView.Activate();
-        _generalMenuView.SetStateBuildingView();
+        if (_gameState == GameState.WeaponModeActive) return;
+        ChangeState(GameState.WeaponModeActive);
     }
 
-    private void OnBuildFarmerHouse()
+    private void OnShowCastleView() 
+    {
+        if (_gameState == GameState.CastleModeActive) return;
+        ChangeState(GameState.CastleModeActive);
+    }
+
+    private void OnBuildBuilding(BuildingType buildingType)
     {
         _cameraController.SwitchToBuildMode(_castle);
     }
-
-    private void OnBackFromBuildMenu()
-    {
-        _cameraController.SwitchToCastle(_castle);
-        _buildMenuView.Deactivate();
-        _generalMenuView.SetStateCastleView();
-    }
-
 }
