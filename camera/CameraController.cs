@@ -6,7 +6,11 @@ public class CameraController : Spatial
     [Export] public float AnimationSpeedCannon { get; set; } = 0.5f;
     [Export] public float AnimationSpeedTargetHit { get; set; } = 0.25f;
     [Export] public float MovementSpeed { get; set; } = 8f;
-    
+    [Export] public float MouseSensitivity { get; set; } = 0.004f;
+
+    private const float MinAngleX = -Mathf.Pi * 0.5f;
+    private const float MaxAngleX = -Mathf.Pi / 180.0f * 10.0f;
+        
     private static readonly Vector3 DistanceToHitTarget = new Vector3(1, 1, 8);
     private static readonly Vector3 DistanceToWeapon = new Vector3(0.4f, 0.5f, 0.8f);
 
@@ -19,6 +23,9 @@ public class CameraController : Spatial
     private Spatial _rotatorX;
     private Camera _camera;
 
+    private bool _leftMousePressed;
+    private Vector2 _lastPosition;
+
     public bool IsAnimating { get; private set; }
 
     public override void _Ready()
@@ -26,6 +33,32 @@ public class CameraController : Spatial
         _tween = GetNode<Tween>("Tween");
         _camera = GetNode<Camera>("rotator_x/Camera");
         _rotatorX = GetNode<Spatial>("rotator_x");
+    }
+
+    public override void _Input(InputEvent inputEvent)
+    {
+        if (_castle == null) return;
+
+        if (inputEvent is InputEventMouseButton mouseButtonEvent && mouseButtonEvent.ButtonIndex == 1)
+        {
+            _leftMousePressed = mouseButtonEvent.Pressed;
+            _lastPosition = mouseButtonEvent.Position;
+        }
+        else if (inputEvent is InputEventMouseMotion mouseMotionEvent)
+        {
+            if (_leftMousePressed)
+            {
+                var relativeMovement = mouseMotionEvent.Position - _lastPosition;
+                _lastPosition = mouseMotionEvent.Position;
+
+                RotateY(-relativeMovement.x * MouseSensitivity);
+
+                _rotatorX.RotateX(-relativeMovement.y * MouseSensitivity);
+                var rotation = _rotatorX.Rotation;
+                rotation.x = Mathf.Clamp(rotation.x, MinAngleX, MaxAngleX);
+                _rotatorX.Rotation = rotation;
+            }
+        }
     }
 
     public override void _Process(float delta)
@@ -39,6 +72,35 @@ public class CameraController : Spatial
         {
             HandleCastleMode(delta);
         }
+    }
+
+    public void AttachTo(IWeapon weapon, bool animate)
+    {
+        _attachedWeapon = weapon;
+        _castle = null;
+
+        _camera.Translation = DistanceToWeapon;
+        _rotatorX.Rotation = Vector3.Zero;
+
+        if (animate)
+        {
+            AnimateToWeapon(_attachedWeapon);
+        }
+        else
+        {
+            Translation = _attachedWeapon.Position;
+        }
+    }
+
+    public void SwitchToCastle(Castle castle)
+    {
+        _attachedWeapon = null;
+        _castle = castle;
+
+        _camera.Translation = DistanceToCastle;
+        Translation = _castle.GetCenter();
+        _rotatorX.Rotation = new Vector3(-Mathf.Pi * 0.2f, 0.0f, 0.0f);
+        Rotation = Vector3.Zero;
     }
 
     private void HandleAttachedToWeapon()
@@ -101,35 +163,6 @@ public class CameraController : Spatial
         _tween.InterpolateProperty(this, "translation", Translation, _attachedWeapon.Position, AnimationSpeedCannon, Tween.TransitionType.Linear, Tween.EaseType.In);
         _tween.InterpolateProperty(this, "rotation", Rotation, new Vector3(0, _attachedWeapon.RotationY, 0), AnimationSpeedCannon, Tween.TransitionType.Linear, Tween.EaseType.In);
         _tween.Start();
-    }
-
-    public void AttachTo(IWeapon weapon, bool animate)
-    {
-        _attachedWeapon = weapon;
-        _castle = null;
-
-        _camera.Translation = DistanceToWeapon;
-        _rotatorX.Rotation = Vector3.Zero;
-
-        if (animate)
-        {
-            AnimateToWeapon(_attachedWeapon);
-        }
-        else
-        {
-            Translation = _attachedWeapon.Position;
-        }
-    }
-
-    public void SwitchToCastle(Castle castle)
-    {
-        _attachedWeapon = null;
-        _castle = castle;
-
-        _camera.Translation = DistanceToCastle;
-        Translation = _castle.GetCenter();
-        _rotatorX.Rotation = new Vector3(-(float)Math.PI * 0.2f, 0.0f, 0.0f);
-        Rotation = Vector3.Zero;
     }
 
     public void OnTweenAllCompleted()

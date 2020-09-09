@@ -254,10 +254,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 17 )
 [node name="weapons" type="Spatial" parent="castle"]
 
 [node name="cannon" parent="castle/weapons" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 3.25, 7.498 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 3.75, 7.498 )
 
 [node name="cannon2" parent="castle/weapons" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 3.25, 16.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 3.75, 16.5 )
 
 [node name="bullets" parent="." instance=ExtResource( 13 )]
 HitHoleScene = ExtResource( 16 )
