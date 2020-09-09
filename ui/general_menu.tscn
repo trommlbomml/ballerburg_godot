@@ -4,11 +4,12 @@
 
 [node name="general_menu" type="VBoxContainer"]
 anchor_left = 1.0
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 margin_left = -141.0
-margin_top = -192.0
+margin_top = -96.0
+margin_bottom = 96.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 script = ExtResource( 1 )
@@ -54,7 +55,6 @@ text = "Build Weapon"
 margin_top = 120.0
 margin_right = 141.0
 margin_bottom = 140.0
-disabled = true
 text = "Build Building"
 
 [node name="view_weapon_button" type="Button" parent="."]
@@ -68,5 +68,6 @@ margin_top = 168.0
 margin_right = 141.0
 margin_bottom = 188.0
 text = "Castle View"
+[connection signal="pressed" from="build_building_button" to="." method="OnBuildBuildingPressed"]
 [connection signal="pressed" from="view_weapon_button" to="." method="OnViewWeaponButtonPressed"]
 [connection signal="pressed" from="view_castle_button" to="." method="OnViewCastleButtonPressed"]

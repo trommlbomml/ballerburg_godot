@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/BuildMenuView.cs" type="Script" id=1]
+
+[node name="build_menu" type="VBoxContainer"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -22.0
+margin_right = 102.0
+margin_bottom = 22.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="farmer_house_button" type="Button" parent="."]
+margin_right = 102.0
+margin_bottom = 20.0
+text = "Farmer House"
+
+[node name="back_button" type="Button" parent="."]
+margin_top = 24.0
+margin_right = 102.0
+margin_bottom = 44.0
+text = "Back"
+[connection signal="pressed" from="farmer_house_button" to="." method="OnFarmerHouseButtonPressed"]
+[connection signal="pressed" from="back_button" to="." method="OnBackButtonPressed"]

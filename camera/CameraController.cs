@@ -16,6 +16,7 @@ public class CameraController : Spatial
 
     private static readonly Vector3 DistanceToCastle = new Vector3(0, 0, 20);
 
+    private bool _inBuildMode;
     private Castle _castle;
     private IWeapon _attachedWeapon;
     private Tween _tween;
@@ -37,7 +38,7 @@ public class CameraController : Spatial
 
     public override void _Input(InputEvent inputEvent)
     {
-        if (_castle == null) return;
+        if (_castle == null || _inBuildMode) return;
 
         if (inputEvent is InputEventMouseButton mouseButtonEvent && mouseButtonEvent.ButtonIndex == 2)
         {
@@ -76,6 +77,7 @@ public class CameraController : Spatial
 
     public void AttachTo(IWeapon weapon, bool animate)
     {
+        _inBuildMode = false;
         _attachedWeapon = weapon;
         _castle = null;
 
@@ -94,12 +96,25 @@ public class CameraController : Spatial
 
     public void SwitchToCastle(Castle castle)
     {
+        _inBuildMode = false;
         _attachedWeapon = null;
         _castle = castle;
 
         _camera.Translation = DistanceToCastle;
         Translation = _castle.GetCenter();
         _rotatorX.Rotation = new Vector3(-Mathf.Pi * 0.2f, 0.0f, 0.0f);
+        Rotation = Vector3.Zero;
+    }
+
+    public void SwitchToBuildMode(Castle castle)
+    {
+        _inBuildMode = true;
+        _attachedWeapon = null;
+        _castle = castle;
+
+        _camera.Translation = DistanceToCastle;
+        Translation = _castle.GetCenter();
+        _rotatorX.Rotation = new Vector3(-Mathf.Pi * 0.5f, 0.0f, 0.0f);
         Rotation = Vector3.Zero;
     }
 
