@@ -22,10 +22,7 @@ public class Castle : Spatial
         Weapons = _weaponsParent.GetChildren().OfType<IWeapon>().ToList();
         Buildings = _buildingsParent.GetChildren().OfType<IBuilding>().ToList();
 
-        Buildings.ForEach(b => {
-            b.Place();
-            GD.Print(b.CastleX, ":", b.CastleZ);
-        });
+        Buildings.ForEach(b => b.Place());
     }
 
     public Vector3 GetCenter()
