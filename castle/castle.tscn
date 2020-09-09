@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://prototyping/tile.png" type="Texture" id=1]
 [ext_resource path="res://castle/Castle.cs" type="Script" id=2]
 [ext_resource path="res://castle/buildings/farmer_house/farmer_house.tscn" type="PackedScene" id=3]
+[ext_resource path="res://castle/placement_marker/placement_marker.tscn" type="PackedScene" id=4]
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 17, 1, 12 )
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 40, 1, 40 )
 
 [sub_resource type="SpatialMaterial" id=2]
 flags_unshaded = true
@@ -19,13 +20,14 @@ size = Vector2( 34, 24 )
 [node name="castle" type="Spatial"]
 script = ExtResource( 2 )
 FarmerHouseScene = ExtResource( 3 )
+PlacementMarkerScene = ExtResource( 4 )
 
 [node name="building_plate" type="StaticBody" parent="."]
 collision_layer = 16
 
 [node name="CollisionShape" type="CollisionShape" parent="building_plate"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -1, 12 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="debug_plate" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 12 )

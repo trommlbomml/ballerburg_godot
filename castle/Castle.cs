@@ -7,6 +7,7 @@ using System;
 public class Castle : Spatial
 {
     [Export] public PackedScene FarmerHouseScene { get; set; }
+    [Export] public PackedScene PlacementMarkerScene { get; set; }
 
     private Spatial _buildingsParent; 
     private Spatial _weaponsParent;
@@ -14,6 +15,7 @@ public class Castle : Spatial
     private CameraController _cameraController;
     private Action _onPlacementFinished;
     private IBuilding _currentlyPlacingBuilding;
+    private PlacementMarker _placementMarker;
     private Vector3 _rayIntersectionCoords;
     private bool[] _cells = new bool[CellsX * CellsZ];
 
@@ -42,14 +44,28 @@ public class Castle : Spatial
     {
         if (_currentlyPlacingBuilding == null) return;
 
+        var canPlace = CanPlace(_currentlyPlacingBuilding);
+        if (canPlace)
+        {
+            _placementMarker.SetAllow();
+        }
+        else
+        {
+            _placementMarker.SetDeny();
+        }
+
         if (Input.IsActionJustPressed("cancel_build"))
         {
+            _placementMarker.QueueFree();
+            _placementMarker = null;
             _buildingsParent.RemoveChild((Node)_currentlyPlacingBuilding);
             _onPlacementFinished?.Invoke();   
         }
 
-        if (Input.IsActionJustPressed("accept_build"))
+        if (Input.IsActionJustPressed("accept_build") && canPlace)
         {
+            _placementMarker.QueueFree();
+            _placementMarker = null;
             AddBuilding(_currentlyPlacingBuilding);
             _currentlyPlacingBuilding = null;
             _onPlacementFinished?.Invoke();
@@ -83,8 +99,14 @@ public class Castle : Spatial
     {
         _cameraController = controller;
         _onPlacementFinished = finished;
+        
         _currentlyPlacingBuilding = (IBuilding)FarmerHouseScene.Instance();
-        _buildingsParent.AddChild((Node)_currentlyPlacingBuilding);
+        _placementMarker = (PlacementMarker)PlacementMarkerScene.Instance();
+        _placementMarker.AttachTo(_currentlyPlacingBuilding);
+
+        var asNode = (Node)_currentlyPlacingBuilding;
+        asNode.AddChild(_placementMarker);
+        _buildingsParent.AddChild(asNode);
     }
 
     private void AddBuilding(IBuilding building)

@@ -22,6 +22,7 @@
     <Compile Include="castle\buildings\Building.cs" />
     <Compile Include="castle\buildings\IBuilding.cs" />
     <Compile Include="castle\Castle.cs" />
+    <Compile Include="castle\placement_marker\PlacementMarker.cs" />
     <Compile Include="ui\crosshair\CrossHair.cs" />
     <Compile Include="ui\menu\MenuView.cs" />
     <Compile Include="ui\minimap\Minimap.cs" />

@@ -31,17 +31,25 @@ public class Building : StaticBody, IBuilding
     public void MoveTo(Vector3 localCoords)
     {
         Translation = localCoords;
-        UpdateCastlePosition();
+        UpdateAndClampCastleAndWorldPosition();
     }
 
     public void Place()
     {
-        UpdateCastlePosition();
+        UpdateAndClampCastleAndWorldPosition();
     }
 
-    private void UpdateCastlePosition()
+    private void UpdateAndClampCastleAndWorldPosition()
     {
         CastleX = (int)Math.Round(Translation.x, MidpointRounding.AwayFromZero);
         CastleZ = (int)Math.Round(Translation.z, MidpointRounding.AwayFromZero);
+
+        CastleX = Mathf.Clamp(CastleX, 0, Castle.CellsX - Width);
+        CastleZ = Mathf.Clamp(CastleZ, 0, Castle.CellsZ - Height);
+
+        var translation = Translation;
+        translation.x = CastleX;
+        translation.z = CastleZ;
+        Translation = translation;
     }
 }
