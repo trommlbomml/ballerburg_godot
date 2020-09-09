@@ -15,6 +15,7 @@ public class GameController : Spatial
     [Export] public NodePath WeaponViewPath { get; set; }
     [Export] public NodePath GeneralMenuViewPath { get; set; }
     [Export] public NodePath CrossHairPath { get; set; }
+    [Export] public NodePath OwnMinimapPath { get; set; }
 
     private GameState _gameState;
     private Castle _castle;
@@ -22,6 +23,7 @@ public class GameController : Spatial
     private Bullets _bullets;
     private Timer _inputTimer;
     
+    private Minimap _ownMinimap;
     private CrossHair _crossHair;
     private WeaponView _weaponView;
     private GeneralMenuView _generalMenuView;
@@ -37,12 +39,14 @@ public class GameController : Spatial
         _weaponView = GetNode<WeaponView>(WeaponViewPath);
         _generalMenuView = GetNode<GeneralMenuView>(GeneralMenuViewPath);
         _crossHair = GetNode<CrossHair>(CrossHairPath);
+        _ownMinimap = GetNode<Minimap>(OwnMinimapPath);
 
         _inputTimer = GetNode<Timer>("input_timer");
 
         _bullets.BulletHitsTarget += OnBulletHitTarget;
         _generalMenuView.ShowCastleView += OnShowCastleView;
         _generalMenuView.ShowWeaponView += OnShowWeaponView;
+        _ownMinimap.AttachCastle(_castle);
 
         ChangeState(GameState.WeaponModeActive, false);
     }
