@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cross.png-d0b3053a752b0e802ce7e60ba53713de.stex"
+path="res://.import/cross.png-f31fefbe49277ee0d39c66c3184f568b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/cross.png"
-dest_files=[ "res://.import/cross.png-d0b3053a752b0e802ce7e60ba53713de.stex" ]
+source_file="res://ui/crosshair/cross.png"
+dest_files=[ "res://.import/cross.png-f31fefbe49277ee0d39c66c3184f568b.stex" ]
 
 [params]
 
