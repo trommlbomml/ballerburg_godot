@@ -24,8 +24,8 @@ namespace Ballerburg.castle.buildings
         int CastleZ { get; }
 
         bool Damage(int amount);
-
         void MoveTo(Vector3 localCoords);
         void Place();
+        void Build();
     }
 }

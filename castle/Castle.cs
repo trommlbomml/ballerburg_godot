@@ -24,6 +24,7 @@ public class Castle : Spatial
 
     public List<IWeapon> Weapons { get; private set; }
     public List<IBuilding> Buildings { get; private set; }
+    public event Action<IBuilding> BuildingAdded;
     
     public override void _Ready()
     {
@@ -54,21 +55,13 @@ public class Castle : Spatial
             _placementMarker.SetDeny();
         }
 
-        if (Input.IsActionJustPressed("cancel_build"))
-        {
-            _placementMarker.QueueFree();
-            _placementMarker = null;
-            _buildingsParent.RemoveChild((Node)_currentlyPlacingBuilding);
-            _onPlacementFinished?.Invoke();   
-        }
-
         if (Input.IsActionJustPressed("accept_build") && canPlace)
         {
             _placementMarker.QueueFree();
             _placementMarker = null;
             AddBuilding(_currentlyPlacingBuilding);
-            _currentlyPlacingBuilding = null;
-            _onPlacementFinished?.Invoke();
+            _currentlyPlacingBuilding.Build();
+            SetBuildPlaceHolder(_currentlyPlacingBuilding.BuildingType);
         }
     }
 
@@ -95,12 +88,25 @@ public class Castle : Spatial
         return GlobalTransform.origin + new Vector3(CellsX * 0.5f, 0.0f, CellsZ * 0.5f);
     }
 
-    public void PlaceNewBuilding(BuildingType buildingType, CameraController controller, Action finished)
+    public void StartPlaceBuilding(BuildingType buildingType, CameraController controller)
     {
         _cameraController = controller;
-        _onPlacementFinished = finished;
-        
-        _currentlyPlacingBuilding = (IBuilding)FarmerHouseScene.Instance();
+
+        SetBuildPlaceHolder(buildingType);
+    }
+
+    public void StopPlaceBuildings()
+    {
+        _placementMarker.QueueFree();
+        _placementMarker = null;
+
+        ((Node)_currentlyPlacingBuilding).QueueFree();
+        _currentlyPlacingBuilding = null;
+    }
+
+    private void SetBuildPlaceHolder(BuildingType buildingType)
+    {
+         _currentlyPlacingBuilding = (IBuilding)FarmerHouseScene.Instance();
         _placementMarker = (PlacementMarker)PlacementMarkerScene.Instance();
         _placementMarker.AttachTo(_currentlyPlacingBuilding);
 
@@ -120,6 +126,8 @@ public class Castle : Spatial
                 _cells[(building.CastleZ + z)*CellsX + x + building.CastleX] = true;
             }
         }
+
+        BuildingAdded?.Invoke(building);
     }
 
     private bool CanPlace(IBuilding building)

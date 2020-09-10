@@ -19,7 +19,6 @@ public class MenuView : Control
     private Button _weaponViewButton;
     private Button _castleViewButton;
     
-
     public event Action ActivateWeaponView;
     public event Action ActivateCastleView;
     public event Action<BuildingType> Build;
