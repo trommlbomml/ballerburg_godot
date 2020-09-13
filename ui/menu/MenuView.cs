@@ -26,9 +26,9 @@ public class MenuView : Control
     public override void _Ready()
     {
         _buildMenu = GetNode<Control>("build_menu");
-        _buildBuildingButton = GetNode<Button>("general_menu/build_building_button");
-        _weaponViewButton = GetNode<Button>("general_menu/view_weapon_button");
-        _castleViewButton = GetNode<Button>("general_menu/view_castle_button");
+        _buildBuildingButton = GetNode<Button>("slide/general_menu/build_building_button");
+        _weaponViewButton = GetNode<Button>("slide/general_menu/view_weapon_button");
+        _castleViewButton = GetNode<Button>("slide/general_menu/view_castle_button");
     }
 
     public void OnViewWeaponButtonPressed()

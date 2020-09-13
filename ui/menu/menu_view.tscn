@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://ui/menu/MenuView.cs" type="Script" id=1]
+[ext_resource path="res://ui/utils/MenuSlider.tscn" type="PackedScene" id=2]
 
 [node name="menu_view" type="Control"]
 anchor_right = 1.0
@@ -10,7 +11,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="general_menu" type="VBoxContainer" parent="."]
+[node name="slide" parent="." instance=ExtResource( 2 )]
+
+[node name="general_menu" type="VBoxContainer" parent="slide"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -24,53 +27,53 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="options_button" type="Button" parent="general_menu"]
+[node name="options_button" type="Button" parent="slide/general_menu"]
 margin_right = 141.0
 margin_bottom = 20.0
 disabled = true
 text = "Options"
 
-[node name="magic_button" type="Button" parent="general_menu"]
+[node name="magic_button" type="Button" parent="slide/general_menu"]
 margin_top = 24.0
 margin_right = 141.0
 margin_bottom = 44.0
 disabled = true
 text = "Magic"
 
-[node name="research_button" type="Button" parent="general_menu"]
+[node name="research_button" type="Button" parent="slide/general_menu"]
 margin_top = 48.0
 margin_right = 141.0
 margin_bottom = 68.0
 disabled = true
 text = "Research"
 
-[node name="autorepair_button" type="Button" parent="general_menu"]
+[node name="autorepair_button" type="Button" parent="slide/general_menu"]
 margin_top = 72.0
 margin_right = 141.0
 margin_bottom = 92.0
 disabled = true
 text = "Auto Repair"
 
-[node name="build_weapon_button" type="Button" parent="general_menu"]
+[node name="build_weapon_button" type="Button" parent="slide/general_menu"]
 margin_top = 96.0
 margin_right = 141.0
 margin_bottom = 116.0
 disabled = true
 text = "Build Weapon"
 
-[node name="build_building_button" type="Button" parent="general_menu"]
+[node name="build_building_button" type="Button" parent="slide/general_menu"]
 margin_top = 120.0
 margin_right = 141.0
 margin_bottom = 140.0
 text = "Build Building"
 
-[node name="view_weapon_button" type="Button" parent="general_menu"]
+[node name="view_weapon_button" type="Button" parent="slide/general_menu"]
 margin_top = 144.0
 margin_right = 141.0
 margin_bottom = 164.0
 text = "Weapon View"
 
-[node name="view_castle_button" type="Button" parent="general_menu"]
+[node name="view_castle_button" type="Button" parent="slide/general_menu"]
 margin_top = 168.0
 margin_right = 141.0
 margin_bottom = 188.0
@@ -96,8 +99,8 @@ margin_top = 24.0
 margin_right = 102.0
 margin_bottom = 44.0
 text = "Back"
-[connection signal="pressed" from="general_menu/build_building_button" to="." method="OnBuildBuildingPressed"]
-[connection signal="pressed" from="general_menu/view_weapon_button" to="." method="OnViewWeaponButtonPressed"]
-[connection signal="pressed" from="general_menu/view_castle_button" to="." method="OnViewCastleButtonPressed"]
+[connection signal="pressed" from="slide/general_menu/build_building_button" to="." method="OnBuildBuildingPressed"]
+[connection signal="pressed" from="slide/general_menu/view_weapon_button" to="." method="OnViewWeaponButtonPressed"]
+[connection signal="pressed" from="slide/general_menu/view_castle_button" to="." method="OnViewCastleButtonPressed"]
 [connection signal="pressed" from="build_menu/farmer_house_button" to="." method="OnBuildFarmerHousePressed"]
 [connection signal="pressed" from="build_menu/back_button" to="." method="OnBackFromBuildMenuPressed"]

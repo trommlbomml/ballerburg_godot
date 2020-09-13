@@ -31,5 +31,6 @@
     <Compile Include="castle\weapons\IWeapon.cs" />
     <Compile Include="logic\GameController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ui\utils\MenuSlider.cs" />
   </ItemGroup>
 </Project>
