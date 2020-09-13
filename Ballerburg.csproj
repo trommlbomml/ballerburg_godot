@@ -24,9 +24,9 @@
     <Compile Include="castle\Castle.cs" />
     <Compile Include="castle\placement_marker\PlacementMarker.cs" />
     <Compile Include="ui\crosshair\CrossHair.cs" />
+    <Compile Include="ui\main_panel\MainPanelView.cs" />
     <Compile Include="ui\menu\MenuView.cs" />
     <Compile Include="ui\minimap\Minimap.cs" />
-    <Compile Include="ui\weapon\WeaponView.cs" />
     <Compile Include="castle\weapons\cannon\Cannon.cs" />
     <Compile Include="castle\weapons\IWeapon.cs" />
     <Compile Include="logic\GameController.cs" />

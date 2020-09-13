@@ -1,0 +1,227 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ui/minimap/minimap.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ui/main_panel/stonewall.png" type="Texture" id=2]
+[ext_resource path="res://ui/main_panel/MainPanelView.cs" type="Script" id=3]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 128, 128 )
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="main_panel" type="PanelContainer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -140.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="spacer" type="MarginContainer" parent="."]
+margin_right = 1440.0
+margin_bottom = 140.0
+custom_constants/margin_top = 5
+
+[node name="root" type="HBoxContainer" parent="spacer"]
+margin_left = 391.0
+margin_top = 5.0
+margin_right = 1048.0
+margin_bottom = 140.0
+size_flags_horizontal = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="left" type="PanelContainer" parent="spacer/root"]
+margin_right = 175.0
+margin_bottom = 135.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="minimap" parent="spacer/root/left" instance=ExtResource( 1 )]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 168.0
+margin_bottom = 128.0
+
+[node name="weapon" type="HBoxContainer" parent="spacer/root"]
+margin_left = 179.0
+margin_right = 478.0
+margin_bottom = 135.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="state" type="PanelContainer" parent="spacer/root/weapon"]
+margin_top = 59.0
+margin_right = 108.0
+margin_bottom = 135.0
+size_flags_vertical = 8
+
+[node name="vbox" type="VBoxContainer" parent="spacer/root/weapon/state"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 101.0
+margin_bottom = 69.0
+
+[node name="status_label" type="Label" parent="spacer/root/weapon/state/vbox"]
+margin_right = 94.0
+margin_bottom = 14.0
+text = "150 Gold"
+align = 1
+
+[node name="destroy_button" type="Button" parent="spacer/root/weapon/state/vbox"]
+margin_top = 18.0
+margin_right = 94.0
+margin_bottom = 38.0
+text = "    Destroy    "
+
+[node name="repair_button" type="Button" parent="spacer/root/weapon/state/vbox"]
+margin_top = 42.0
+margin_right = 94.0
+margin_bottom = 62.0
+text = "Repair"
+
+[node name="nav" type="PanelContainer" parent="spacer/root/weapon"]
+margin_left = 112.0
+margin_top = 31.0
+margin_right = 194.0
+margin_bottom = 135.0
+size_flags_vertical = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vbox" type="VBoxContainer" parent="spacer/root/weapon/nav"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 75.0
+margin_bottom = 97.0
+custom_constants/separation = 8
+
+[node name="display" type="HBoxContainer" parent="spacer/root/weapon/nav/vbox"]
+margin_right = 68.0
+margin_bottom = 14.0
+custom_constants/separation = 16
+
+[node name="angle_label" type="Label" parent="spacer/root/weapon/nav/vbox/display"]
+margin_right = 24.0
+margin_bottom = 14.0
+text = "000"
+
+[node name="power_label" type="Label" parent="spacer/root/weapon/nav/vbox/display"]
+margin_left = 40.0
+margin_right = 64.0
+margin_bottom = 14.0
+text = "000"
+
+[node name="controls" type="GridContainer" parent="spacer/root/weapon/nav/vbox"]
+margin_top = 22.0
+margin_right = 68.0
+margin_bottom = 90.0
+custom_constants/vseparation = 4
+custom_constants/hseparation = 4
+columns = 3
+
+[node name="nop1" type="Button" parent="spacer/root/weapon/nav/vbox/controls"]
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="add_power_button" type="Button" parent="spacer/root/weapon/nav/vbox/controls"]
+margin_left = 24.0
+margin_right = 44.0
+margin_bottom = 20.0
+text = "+"
+
+[node name="nop2" type="Button" parent="spacer/root/weapon/nav/vbox/controls"]
+margin_left = 48.0
+margin_right = 68.0
+margin_bottom = 20.0
+
+[node name="rotate_left_button" type="Button" parent="spacer/root/weapon/nav/vbox/controls"]
+margin_top = 24.0
+margin_right = 20.0
+margin_bottom = 44.0
+text = "<"
+
+[node name="shoot_button" type="Button" parent="spacer/root/weapon/nav/vbox/controls"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 44.0
+margin_bottom = 44.0
+text = "X"
+
+[node name="rotate_right_button" type="Button" parent="spacer/root/weapon/nav/vbox/controls"]
+margin_left = 48.0
+margin_top = 24.0
+margin_right = 68.0
+margin_bottom = 44.0
+text = ">"
+
+[node name="nop3" type="Button" parent="spacer/root/weapon/nav/vbox/controls"]
+margin_top = 48.0
+margin_right = 20.0
+margin_bottom = 68.0
+
+[node name="decrease_power_button" type="Button" parent="spacer/root/weapon/nav/vbox/controls"]
+margin_left = 24.0
+margin_top = 48.0
+margin_right = 44.0
+margin_bottom = 68.0
+text = "-"
+
+[node name="nop4" type="Button" parent="spacer/root/weapon/nav/vbox/controls"]
+margin_left = 48.0
+margin_top = 48.0
+margin_right = 68.0
+margin_bottom = 68.0
+
+[node name="view" type="PanelContainer" parent="spacer/root/weapon"]
+margin_left = 198.0
+margin_top = 59.0
+margin_right = 299.0
+margin_bottom = 135.0
+size_flags_vertical = 8
+
+[node name="vbox" type="VBoxContainer" parent="spacer/root/weapon/view"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 94.0
+margin_bottom = 69.0
+
+[node name="status_label" type="Label" parent="spacer/root/weapon/view/vbox"]
+margin_right = 87.0
+margin_bottom = 14.0
+text = "Canon (100%)"
+align = 1
+
+[node name="Button" type="Button" parent="spacer/root/weapon/view/vbox"]
+margin_top = 18.0
+margin_right = 87.0
+margin_bottom = 38.0
+text = "Reset"
+
+[node name="Button2" type="Button" parent="spacer/root/weapon/view/vbox"]
+margin_top = 42.0
+margin_right = 87.0
+margin_bottom = 62.0
+text = "Hit View"
+
+[node name="right" type="PanelContainer" parent="spacer/root"]
+margin_left = 482.0
+margin_right = 657.0
+margin_bottom = 135.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="minimap" parent="spacer/root/right" instance=ExtResource( 1 )]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 168.0
+margin_bottom = 128.0

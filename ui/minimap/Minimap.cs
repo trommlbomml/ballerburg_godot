@@ -12,15 +12,20 @@ public class Minimap : TextureRect
 
     public void RefreshFromCastle(Castle castle)
     {
-        foreach(Node child in GetChildren())
-        {
-            child.QueueFree();
-        }
+        Clear();
         foreach(var building in castle.Buildings)
         {
             var sprite = CreateSpriteFromBuilding(building);
             sprite.Position = new Vector2(building.CastleX * TileWidth, building.CastleZ * TileHeight);
             AddChild(sprite);
+        }
+    }
+
+    public void Clear()
+    {
+        foreach(Node child in GetChildren())
+        {
+            child.QueueFree();
         }
     }
 

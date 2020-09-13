@@ -13,11 +13,10 @@ public class GameController : Spatial
     [Export] public NodePath CameraPath { get; set; }
     [Export] public NodePath CastlePath { get; set; }
     [Export] public NodePath BulletsPath { get; set; }
-    [Export] public NodePath WeaponViewPath { get; set; }
+    [Export] public NodePath MainPanelPath { get; set; }
     [Export] public NodePath MenuViewPath { get; set; }
 
     [Export] public NodePath CrossHairPath { get; set; }
-    [Export] public NodePath OwnMinimapPath { get; set; }
 
     private GameState _gameState;
     private Castle _castle;
@@ -25,9 +24,8 @@ public class GameController : Spatial
     private Bullets _bullets;
     private Timer _inputTimer;
     
-    private Minimap _ownMinimap;
     private CrossHair _crossHair;
-    private WeaponView _weaponView;
+    private MainPanelView _mainPanelView;
     private MenuView _menuView;
 
     private IWeapon _activeWeapon;
@@ -38,10 +36,9 @@ public class GameController : Spatial
         _cameraController = GetNode<CameraController>(CameraPath);
         _castle = GetNode<Castle>(CastlePath);
         _bullets = GetNode<Bullets>(BulletsPath);
-        _weaponView = GetNode<WeaponView>(WeaponViewPath);
+        _mainPanelView = GetNode<MainPanelView>(MainPanelPath);
         _menuView = GetNode<MenuView>(MenuViewPath);
         _crossHair = GetNode<CrossHair>(CrossHairPath);
-        _ownMinimap = GetNode<Minimap>(OwnMinimapPath);
         _inputTimer = GetNode<Timer>("input_timer");
 
         _bullets.BulletHitsTarget += OnBulletHitTarget;
@@ -50,7 +47,7 @@ public class GameController : Spatial
         _menuView.Build += OnBuildBuilding;
         _castle.BuildingAdded += OnBuildingAdded;
 
-        _ownMinimap.RefreshFromCastle(_castle);
+        _mainPanelView.UpdateOwnMinimap(_castle);
 
         _menuView.SetMenuState(MenuState.RootMenuCastleView);
         ChangeState(GameState.CastleView);
@@ -95,7 +92,7 @@ public class GameController : Spatial
 
     private void OnBuildingAdded(IBuilding obj)
     {
-        _ownMinimap.RefreshFromCastle(_castle);
+        _mainPanelView.UpdateOwnMinimap(_castle);
     }
 
     private void OnInputTimerTimeout()
@@ -130,7 +127,7 @@ public class GameController : Spatial
         _cameraController.SwitchToCastle(_castle);
         _inputTimer.Stop();
 
-        _weaponView.HideWeapon();
+        _mainPanelView.HideWeaponView();
         _crossHair.Deactivate();
     }
 
@@ -219,6 +216,6 @@ public class GameController : Spatial
         _cameraController.AttachTo(weapon, animate);
         _activeWeapon = weapon;
         _inputTimer.Stop();
-        _weaponView.ShowWeapon(weapon);
+        _mainPanelView.ShowWeaponView(weapon);
     }
 }

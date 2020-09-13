@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://terraindata/water_normal_2.png" type="Texture" id=1]
 [ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=2]
@@ -14,13 +14,12 @@
 [ext_resource path="res://castle/buildings/walls/wall_we.tscn" type="PackedScene" id=12]
 [ext_resource path="res://bullets/bullets.tscn" type="PackedScene" id=13]
 [ext_resource path="res://castle/buildings/farmer_house/farmer_house.tscn" type="PackedScene" id=14]
-[ext_resource path="res://ui/weapon/weapon_view.tscn" type="PackedScene" id=15]
+[ext_resource path="res://ui/main_panel/main_panel.tscn" type="PackedScene" id=15]
 [ext_resource path="res://bullets/hit_hole.tscn" type="PackedScene" id=16]
 [ext_resource path="res://castle/buildings/walls/tower.tscn" type="PackedScene" id=17]
 [ext_resource path="res://castle/buildings/walls/gate.tscn" type="PackedScene" id=18]
 [ext_resource path="res://ui/crosshair/cross_hair.tscn" type="PackedScene" id=19]
 [ext_resource path="res://ui/menu/menu_view.tscn" type="PackedScene" id=20]
-[ext_resource path="res://ui/minimap/minimap.tscn" type="PackedScene" id=21]
 [ext_resource path="res://castle/buildings/walls/wall_ns.tscn" type="PackedScene" id=22]
 [ext_resource path="res://castle/buildings/walls/wall_edge_nw.tscn" type="PackedScene" id=23]
 [ext_resource path="res://castle/buildings/walls/wall_edge_sw.tscn" type="PackedScene" id=24]
@@ -335,25 +334,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="weapon_view" parent="ui_root" instance=ExtResource( 15 )]
-margin_top = -113.0
-margin_bottom = 1.0
-
 [node name="cross_hair" parent="ui_root" instance=ExtResource( 19 )]
 
-[node name="own_minimap" parent="ui_root" instance=ExtResource( 21 )]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -121.0
-margin_bottom = 0.0
-
 [node name="menu_view" parent="ui_root" instance=ExtResource( 20 )]
+
+[node name="main_panel" parent="ui_root" instance=ExtResource( 15 )]
 
 [node name="_game_controller" parent="." instance=ExtResource( 10 )]
 CameraPath = NodePath("../camera")
 CastlePath = NodePath("../castle")
 BulletsPath = NodePath("../bullets")
-WeaponViewPath = NodePath("../ui_root/weapon_view")
+MainPanelPath = NodePath("../ui_root/main_panel")
 MenuViewPath = NodePath("../ui_root/menu_view")
 CrossHairPath = NodePath("../ui_root/cross_hair")
-OwnMinimapPath = NodePath("../ui_root/own_minimap")
