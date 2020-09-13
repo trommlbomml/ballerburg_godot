@@ -12,6 +12,7 @@ public class GameController : Spatial
 {
     [Export] public NodePath CameraPath { get; set; }
     [Export] public NodePath CastlePath { get; set; }
+    [Export] public NodePath EnemyCastlePath { get; set; }
     [Export] public NodePath BulletsPath { get; set; }
     [Export] public NodePath MainPanelPath { get; set; }
     [Export] public NodePath MenuViewPath { get; set; }
@@ -20,6 +21,7 @@ public class GameController : Spatial
 
     private GameState _gameState;
     private Castle _castle;
+    private Castle _enemyCastle;
     private CameraController _cameraController;
     private Bullets _bullets;
     private Timer _inputTimer;
@@ -35,6 +37,7 @@ public class GameController : Spatial
     {
         _cameraController = GetNode<CameraController>(CameraPath);
         _castle = GetNode<Castle>(CastlePath);
+        _enemyCastle = GetNode<Castle>(EnemyCastlePath);
         _bullets = GetNode<Bullets>(BulletsPath);
         _mainPanelView = GetNode<MainPanelView>(MainPanelPath);
         _menuView = GetNode<MenuView>(MenuViewPath);
@@ -48,6 +51,7 @@ public class GameController : Spatial
         _castle.BuildingAdded += OnBuildingAdded;
 
         _mainPanelView.UpdateOwnMinimap(_castle);
+        _mainPanelView.UpdateEnemyMiniMap(_enemyCastle);
 
         _menuView.SetMenuState(MenuState.RootMenuCastleView);
         ChangeState(GameState.CastleView);
